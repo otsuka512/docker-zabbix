@@ -45,6 +45,9 @@ RUN yum -y -q install \
 RUN yum -y -q install java-1.8.0-openjdk \
                       java-1.8.0-openjdk-devel
 
+# Install for Japanese font and patlite support.
+RUN yum -y -q install ipa-pgothic-fonts nc
+
 COPY ./profile.d/java.sh /etc/profile.d/java.sh
 RUN chmod 755 /etc/profile.d/java.sh
 
@@ -86,6 +89,7 @@ RUN chown root:zabbix /etc/zabbix/zabbix_server.conf
 # Monit
 ADD ./monitrc /etc/monitrc
 RUN chmod 600 /etc/monitrc
+RUN chown root.root /etc/monitrc
 
 # https://github.com/dotcloud/docker/issues/1240#issuecomment-21807183
 RUN echo "NETWORKING=yes" > /etc/sysconfig/network
@@ -93,6 +97,12 @@ RUN echo "NETWORKING=yes" > /etc/sysconfig/network
 # Add the script that will start the repo.
 ADD ./scripts/entrypoint.sh /bin/docker-zabbix
 RUN chmod 755 /bin/docker-zabbix
+
+# Add Localte
+RUN localedef -f UTF-8 -i ja_JP /usr/lib/locale/ja_JP.UTF-8
+
+# Use Japanese font
+RUN alternatives --install /usr/share/zabbix/fonts/graphfont.ttf zabbix-web-font /usr/share/fonts/ipa-pgothic/ipagp.ttf 1000
 
 # Expose the Ports used by
 # * Zabbix services
