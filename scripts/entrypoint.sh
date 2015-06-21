@@ -23,7 +23,7 @@ if [ ! -f "$_file_marker" ]; then
 
 	mysql -uroot -p"$MYSQL_PASSWORD" -e "GRANT ALL ON *.* TO 'admin'@'%';"
 
-	mysqladmin -uroot -p"$MYSQL_PASSWORD" create zabbix
+	mysqladmin -uroot -p"$MYSQL_PASSWORD" create zabbix character set utf8
 
 	mysql -uroot -p"$MYSQL_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS zabbix CHARACTER SET utf8;"
 
