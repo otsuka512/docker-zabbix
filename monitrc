@@ -1,4 +1,5 @@
 set init
+set daemon 120
 
 set httpd
 	port 2812

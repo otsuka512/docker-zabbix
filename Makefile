@@ -3,6 +3,9 @@
 TAGNAME  = otsuka512/docker-zabbix
 CONTNAME = zabbix
 
+backup:
+	./backup.sh
+
 build:
 	docker build -t $(TAGNAME) .
 
