@@ -17,6 +17,7 @@ start:
 
 stop:
 	sudo initctl stop docker-$(CONTNAME)
+	docker stop $(CONTNAME)
 
 rm:
 	docker rm $(CONTNAME)
